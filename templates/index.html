@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block title %}Describe your project - Risk & Opportunity Radar{% endblock %}
+
+{% block content %}
+<section class="card intro">
+    <h1>Describe your startup or project</h1>
+    <p>
+        Tell us briefly what you are building, who it is for, and how you plan
+        to make money (if applicable). We'll generate a structured overview of
+        possible risks, opportunities and suggested next steps.
+    </p>
+</section>
+
+{% if error %}
+<div class="alert alert-error">{{ error }}</div>
+{% endif %}
+
+<section class="card">
+    <form action="{{ url_for('analyze') }}" method="post">
+        <label for="company_name">Company / project name (optional)</label>
+        <input
+            type="text"
+            id="company_name"
+            name="company_name"
+            placeholder="e.g. GreenRoute"
+            value="{{ company_name or '' }}"
+        >
+
+        <label for="description">Describe your company or project</label>
+        <textarea
+            id="description"
+            name="description"
+            rows="8"
+            placeholder="e.g. We are building a SaaS app that helps small e-commerce shops track sustainability metrics for their products..."
+            required
+        >{{ request.form.get('description', '') }}</textarea>
+
+        <button type="submit">Analyze</button>
+    </form>
+</section>
+
+<section class="card examples">
+    <h2>Need inspiration?</h2>
+    <p>Try describing something like:</p>
+    <ul>
+        <li>"A mobile app that connects freelance tutors with students for live sessions."</li>
+        <li>"An AI-powered SaaS tool that automates invoice processing for small businesses."</li>
+        <li>"A marketplace for buying and selling refurbished hardware and electronics."</li>
+    </ul>
+</section>
+{% endblock %}
